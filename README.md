@@ -13,52 +13,50 @@ Su propósito princial es encapsular una funcionalidad común y hacerla reutiliz
   * Se pueden implementar la mayoría de los componentes de orden superior (HOC) utilizando un componente regular con una render prop.
 
 Ejemplo:
-class Cat extends React.Component {
-    render() {
-        const mouse = this.props.mouse;
-     return (
-      <img src="/cat.jpg" style={{ position: 'absolute', left: mouse.x, top: mouse.y }} />
-     );
-   }
-}
-class Mouse extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleMouseMove = this.handleMouseMove.bind(this);
-        this.state = { x: 0, y: 0 };
-    }
 
-
-    handleMouseMove(event) {
-        this.setState({
-            x: event.clientX,
-            y: event.clientY
-        });
-    }
-
-
-    render() {
+     class Cat extends React.Component {
+       render() {
+           const mouse = this.props.mouse;
         return (
-            <div style={{ height: '100vh' }} nonMouseMove={this.handleMouseMove}>
-                {this.props.render(this.state)}
-            </div>
+         <img src="/cat.jpg" style={{ position: 'absolute', left: mouse.x, top: mouse.y }} />
         );
+      }
+     }
+     
+     class Mouse extends React.Component {
+       constructor(props) {
+           super(props);
+           this.handleMouseMove = this.handleMouseMove.bind(this);
+           this.state = { x: 0, y: 0 };
+       }
+       handleMouseMove(event) {
+           this.setState({
+               x: event.clientX,
+               y: event.clientY
+           });
+       }
+       render() {
+           return (
+               <div style={{ height: '100vh' }} nonMouseMove={this.handleMouseMove}>
+                   {this.props.render(this.state)}
+               </div>
+           );
+       }
+      }
+    
+    class MouseTracker extends React.Component {
+     render() {
+         return (
+             <div>
+                 <h1>Move the mouse around!</h1>
+                 <Mouse render={mouse => (
+                     <Cat mouse={mouse} />
+                 )} />
+             </div>
+         );
+     }
     }
-}
 
-
-class MouseTracker extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>Move the mouse around!</h1>
-                <Mouse render={mouse => (
-                    <Cat mouse={mouse} />
-                )} />
-            </div>
-        );
-    }
-}
 
 3. En la práctica, ¿cuáles son las diferencias clave entre el patrón HOC y el patrón Render Props en cuanto a su implementación y cuándo se prefiere uno sobre el otro?
 En cuanto a su implementación, los HOCs, son funciones que reciben un componente como párametro y devuelve un nuevo componente agregando props adicionales o lógica al componente devuelto. 
