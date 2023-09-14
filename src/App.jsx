@@ -1,10 +1,10 @@
 
 import './App.css'
-import MyComponent from './components/MyComponent';
+import MyTooltipComponent from './components/MyTooltipComponent';
 import Toogle from './components/Toogle'
 import withTooltip from './components/Tooltip';
 
-const TooltipedComponent = withTooltip(MyComponent, 'Hola :)');
+const TooltipedComponent = withTooltip(MyTooltipComponent, 'Hola :)');
 
 function App() {
 
