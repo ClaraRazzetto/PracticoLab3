@@ -1,29 +1,40 @@
-
 import './App.css'
-import MyTooltipComponent from './components/MyTooltipComponent';
-import Toogle from './components/Toogle'
-import withTooltip from './components/Tooltip';
+import MyToogleComponent from './components/UsingHOCs/MyToogleComponent'
+import MyTooltipComponent from './components/UsingHOCs/MyTooltipComponent'
+import withToogle from './components/UsingHOCs/Toogle'
+import withTooltip from './components/UsingHOCs/Tooltip'
+import Toogle from './components/UsingRenderProps/Toogle'
+import Tooltip from './components/UsingRenderProps/Tooltip'
 
-const TooltipedComponent = withTooltip(MyTooltipComponent, 'Hola :)');
+const ToggledComponent = withToogle(MyToogleComponent);
+const TooltipedComponent = withTooltip( MyTooltipComponent);
 
 function App() {
 
   return (
-    <>
+    <div className='super-card'>
+
       <div className='card'>
+
+        <h2>Using Render Props</h2>
+
         <Toogle>
-          {({on, buttonClickHandler}) =>
-          (
-            <button className = "mensajebutton" onClick={buttonClickHandler}>{on ? '' : 'Clikea sobre mi para desaparecer este mensaje'}</button>
-          )
-          }
+          <p>Hola</p>
         </Toogle>
+
+        <Tooltip text="Buen día :) ">
+          <button> Pasa el mouse sobre mí </button>
+        </Tooltip>
+
       </div>
 
-      <div>
-        <TooltipedComponent />
+      <div className='card'>
+        <h2>Using HOCs</h2>
+        <ToggledComponent>Hola</ToggledComponent>
+        <TooltipedComponent text="Buen día :) "/>
+
       </div>
-    </>
+    </div>
   )
 }
 
