@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 
 const withTooltip = (WrappedComponent, tooltipText) => {
-  return class WithTooltip extends Component {
-   
-    state = {
-      show: false,
-    };
+  return function WithTooltip (props) {
+
+    const [show, setShow] = useState(false);
 
     handleMouseEnter = () => {
-      this.setState({ show: true });
+     setShow(true);
     };
 
     handleMouseLeave = () => {
-      this.setState({ show: false });
+     setShow(false);
     };
 
     render() {
       return (
         <div className='card'
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          <WrappedComponent {...this.props} />
-          {this.state.show && (
+          <WrappedComponent {...props} />
+          {show && (
             <div className='card'>
               {tooltipText}
             </div>
